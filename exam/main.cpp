@@ -18,6 +18,7 @@ void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, s
 int main(void)
 {
 	shield.Init ();
+	shield.SetAudioBlockSize (8);
 	engine.init ();
 
 	shield.StartAdc ();
