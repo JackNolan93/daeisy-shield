@@ -12,13 +12,18 @@ public:
 
     void init ();
 
-    void process (daisy::AudioHandle::InputBuffer & in,
-                  daisy::AudioHandle::OutputBuffer & out, 
-                  size_t size);
+    void processOscBank (daisy::AudioHandle::InputBuffer & in,
+                         daisy::AudioHandle::OutputBuffer & out, 
+                         size_t size);
 
+    void processDrums (daisy::AudioHandle::InputBuffer & in,
+                         daisy::AudioHandle::OutputBuffer & out, 
+                         size_t size);  
 private:
 
 void initOscillators ();
+void initDrums ();
+
 void updateParameters ();
 
 static constexpr int numberOfOscillators = 8;
@@ -26,7 +31,13 @@ static constexpr int numberOfOscillators = 8;
 daisy::DaeisyShield & _shield;
 daisysp::Oscillator _oscillators[numberOfOscillators];
 
+daisysp::SyntheticBassDrum _kick;
+daisysp::AnalogSnareDrum _snare;
+daisysp::HiHat<> _hat;
+
 float _output = 0.0;
+
+int count = 0;
 
 };
     

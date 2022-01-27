@@ -9,8 +9,13 @@ Engine::Engine (daisy::DaeisyShield & shield)
 
 void Engine::init ()
 {
+     initOscillators ();
+     initDrums ();
+}
 
-    float freq = 50;
+void Engine::initOscillators ()
+{
+        float freq = 50;
     for (auto & osc : _oscillators)
     {
         osc.Init (_shield.AudioSampleRate ());
@@ -18,13 +23,45 @@ void Engine::init ()
         osc.SetFreq (freq);
         osc.SetWaveform (daisysp::Oscillator::WAVE_POLYBLEP_SAW);
 
-        freq *= 1.5f;
+        freq *= 1.25f;
     }
 }
 
-void Engine::process (daisy::AudioHandle::InputBuffer & in,
-                      daisy::AudioHandle::OutputBuffer & out, 
-                      size_t size)
+void Engine::initDrums ()
+{
+    _kick.Init (_shield.AudioSampleRate ());
+    _snare.Init (_shield.AudioSampleRate ());
+    _hat.Init (_shield.AudioSampleRate ());
+}
+
+void Engine::processDrums (daisy::AudioHandle::InputBuffer & in,
+                           daisy::AudioHandle::OutputBuffer & out, 
+                           size_t size)
+{
+    if (_shield.gate_inputs[0].Trig ())
+        _kick.Trig ();
+
+    if (_shield.gate_inputs[1].Trig ())
+        _snare.Trig ();
+
+    if (_shield.gate_inputs[2].Trig ())
+        _hat.Trig ();
+
+
+    for (int i = 0; i < size; ++i)
+    {
+        out [0][i] = 0;
+        out [0][i] += _kick.Process ();
+        out [0][i] += _snare.Process ();
+        out [0][i] += _hat.Process ();
+
+        out [1][i] = out [0][i];
+    }
+}
+
+void Engine::processOscBank (daisy::AudioHandle::InputBuffer & in,
+                             daisy::AudioHandle::OutputBuffer & out, 
+                             size_t size)
 {
     _shield.ProcessAnalogControls ();
     updateParameters ();
@@ -42,7 +79,7 @@ void Engine::process (daisy::AudioHandle::InputBuffer & in,
         out [1][spl] = _output;
     }
 
-    _shield.seed.SetLed (_shield.controls[3].Value () > 0.5);
+    _shield.seed.SetLed (_shield.controls[1].Value () > 0.5);
 };
 
 void Engine::updateParameters ()

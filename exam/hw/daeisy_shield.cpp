@@ -24,9 +24,9 @@ using namespace daisy;
 #define PIN_GATE_OUT_1 2
 #define PIN_GATE_OUT_2 1
 
-#define PIN_GATE_IN_1 14
+#define PIN_GATE_IN_1 12
 #define PIN_GATE_IN_2 13
-#define PIN_GATE_IN_3 12
+#define PIN_GATE_IN_3 14
 
 void DaeisyShield::Init(bool boost)
 {
