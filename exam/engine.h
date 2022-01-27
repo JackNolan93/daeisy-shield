@@ -36,9 +36,6 @@ daisysp::AnalogSnareDrum _snare;
 daisysp::HiHat<> _hat;
 
 float _output = 0.0;
-
-int count = 0;
-
 };
     
 }

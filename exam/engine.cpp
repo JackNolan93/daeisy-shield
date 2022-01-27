@@ -48,7 +48,7 @@ void Engine::processDrums (daisy::AudioHandle::InputBuffer & in,
         _hat.Trig ();
 
 
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < int (size); ++i)
     {
         out [0][i] = 0;
         out [0][i] += _kick.Process ();
