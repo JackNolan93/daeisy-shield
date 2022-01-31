@@ -11,7 +11,6 @@ daisyshield::exam::Engine engine { shield };
 
 void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size)
 {
-	//engine.processOscBank (in, out, size);
 	engine.processDrums (in, out, size);
 }
 

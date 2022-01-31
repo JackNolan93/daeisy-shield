@@ -68,15 +68,13 @@ void Engine::processOscBank (daisy::AudioHandle::InputBuffer & in,
 
     for (size_t spl = 0; spl < size; ++spl)
     {
-        _output = 0.0;
+        out [0][spl] = 0.0;
 
         for (int i = 0; i < numberOfOscillators; ++i)
-            _output += _oscillators [i].Process ();
+            out [0][spl] += _oscillators [i].Process ();
 
-        _output /= float (numberOfOscillators);
-
-        out [0][spl] = _output;
-        out [1][spl] = _output;
+        out [0][spl] /= float (numberOfOscillators);
+        out [1][spl] = out [0][spl];
     }
 
     _shield.seed.SetLed (_shield.controls[1].Value () > 0.5);
