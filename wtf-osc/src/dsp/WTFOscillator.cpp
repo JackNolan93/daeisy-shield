@@ -5,12 +5,12 @@ using namespace JackDsp;
 
 void WTFOscillator::Init(float sample_rate)
 {
-    sample_rate_ = sample_rate;
+    _sampleRate = sample_rate;
 
-    phase_       = 0.0f;
-    next_sample_ = 0.0f;
-    previous_ww_ = 0.0f;
-    high_        = false;
+    _phase       = 0.0f;
+    _nextSample = 0.0f;
+    _previousWindowWidth = 0.0f;
+    _high        = false;
 
     SetFreq(220.f);
     SetFrontWaveshape (WaveShape::WS_SIN);
@@ -22,29 +22,29 @@ void WTFOscillator::Init(float sample_rate)
 
 float WTFOscillator::Process()
 {
-    float next_sample = next_sample_;
+    float next_sample = _nextSample;
 
     float this_sample = 0.0;
     next_sample       = 0.0f;
 
-    phase_ += frequency_;
-    while (phase_ > 1.f)
-        phase_ -= 1.f;
+    _phase += _frequency;
+    while (_phase > 1.f)
+        _phase -= 1.f;
 
-    this_sample = ComputeNaiveSample (phase_,
-                                      _window.containsPhase (phase_) ||
-                                      _windowAux.containsPhase (phase_) 
+    this_sample = ComputeNaiveSample (_phase,
+                                      _window.containsPhase (_phase) ||
+                                      _windowAux.containsPhase (_phase) 
                                       ? _bWave : _fWave);
 
-    next_sample_ = next_sample;
+    _nextSample = next_sample;
     return (2.0f * this_sample - 1.0f);
 }
 
 void WTFOscillator::SetFreq(float frequency)
 {
-    frequency  = frequency / sample_rate_;
+    frequency  = frequency / _sampleRate;
     frequency  = frequency >= .25f ? .25f : frequency;
-    frequency_ = frequency;
+    _frequency = frequency;
 }
 
 void WTFOscillator::SetWindowConfig (WindowConfig config)
@@ -105,7 +105,7 @@ float WTFOscillator::ComputeNaiveSample(float phase, WaveShape wave)
     float out;
     switch (wave)
     {
-        case WS_SIN: out = (sinf(phase * PI_F * 2) + 1) / 2.f; break;
+        case WS_SIN: out = (sinf(phase * M_PI * 2) + 1) / 2.f; break;
         case WS_TRIANGLE:
             out = phase < 0.5 ? phase * 2 : 1.0f - (phase - 0.5) * 2;
             break;
@@ -136,7 +136,7 @@ float WTFOscillator::ComputeHarmonicWaveForm (float phase)
 {
     float out = 0;
     for (int i = 1; i <= 6; ++i)
-        out += (sinf(phase * PI_F * 2 * i) + 1) / 2.f; 
+        out += (sinf(phase * M_PI * 2 * i) + 1) / 2.f; 
 
     return out / 6;
 } 

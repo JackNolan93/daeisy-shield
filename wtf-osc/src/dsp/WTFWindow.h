@@ -1,4 +1,3 @@
-#include "daisysp.h"
 #include <utility>
  
 namespace JackDsp

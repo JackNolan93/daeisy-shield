@@ -1,4 +1,3 @@
-#include "daisysp.h"
 #include "WTFWindow.h"
 #include <utility>
  
@@ -38,7 +37,7 @@ public:
 
     void SetFreq(float frequency);
 
-    void SetWindowW (float pw);
+    void SetWindowW (float ww);
     void SetWindowConfig (WindowConfig config);
 
     void SetFrontWaveshape(WaveShape waveshape);
@@ -55,20 +54,19 @@ private:
 
     float ComputeHarmonicWaveForm (float phase);
 
-    float sample_rate_;
+    float _sampleRate;
 
     // Oscillator state.
-    float frequency_;
-    float phase_;
-    float next_sample_;
-    float previous_ww_;
-    bool  high_;
+    float _frequency;
+    float _phase;
+    float _nextSample;
+    float _previousWindowWidth;
+    bool  _high;
 
     WaveShape _fWave;
     WaveShape _bWave;
 
     WTFWindow _window;
     WTFWindow _windowAux;
-    float ww_;
 };
 }
