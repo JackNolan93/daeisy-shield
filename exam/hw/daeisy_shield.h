@@ -76,7 +76,7 @@ class DaeisyShield
     void StopAdc();
 
     void ProcessAnalogControls();
-        void ProcessDigitalControls();
+    void ProcessDigitalControls();
 
     inline void ProcessAllControls()
     {
@@ -85,7 +85,7 @@ class DaeisyShield
     }
 
     float GetControlValue(AnalogCtrl control);
-    float GetVOctValue(AnalogCtrl control);
+    float GetVOctValue();
 
     DaisySeed       seed;   
     AnalogControl   controls[CTRL_NBR];  

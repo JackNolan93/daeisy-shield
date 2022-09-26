@@ -16,10 +16,11 @@ using namespace daisy;
 #define PIN_CV_CTRL_3 19
 #define PIN_CV_CTRL_4 20
 
-#define PIN_BUTTON_1 29
-#define PIN_BUTTON_2 30
-#define PIN_BUTTON_3 5
-#define PIN_BUTTON_4 6
+#define PIN_BUTTON_1 8
+#define PIN_BUTTON_2 9
+#define PIN_BUTTON_3 10
+#define PIN_BUTTON_4 11
+
 
 #define PIN_GATE_OUT_1 2
 #define PIN_GATE_OUT_2 1
@@ -113,9 +114,9 @@ float DaeisyShield::GetControlValue(AnalogCtrl control)
     return (controls[control].Value());
 }
 
-float DaeisyShield::GetVOctValue(AnalogCtrl control)
+float DaeisyShield::GetVOctValue()
 {
-    return (controls [V_OCT_1].Value () * 3.3 * ((100 + 47) / 100));
+    return (controls [V_OCT_1].Value () * 3.3 * 146.5) / 100.0;
 }
 
 void DaeisyShield::ProcessDigitalControls()
