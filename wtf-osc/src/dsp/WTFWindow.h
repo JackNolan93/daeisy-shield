@@ -15,7 +15,7 @@ public:
         return _lowerBoundary <= phase && phase <= _upperBoundary;
     }
 
-    void SetLimits (float lower, float upper)
+    void setLimits (float lower, float upper)
     {
         _lowerLimit = lower;
         _upperLimit = upper;
@@ -23,10 +23,10 @@ public:
         _windowSize = upper - lower;
         _windowCentre = (upper + lower) / 2;
 
-        SetWindowWidth (_rawWidth);
+        setWindowWidth (_rawWidth);
     }
 
-    void SetWindowWidth (float width)
+    void setWindowWidth (float width)
     {
         width = width < 0.005 ? 0 : width;
         width = width > 1 - 0.005 ? 1.1 : width;

@@ -1,4 +1,4 @@
-#include "wtfosc_wrapper.h"
+#include "WtfoscWrapper.h"
 #include "m_pd.h"
 #include <math.h>
 
@@ -26,10 +26,10 @@ t_int * wtfosc_tilde_perform(t_int *w)
 
     for(int i = 0; i < n; i++)
     {
-        WTFOscillator_setFreq (x->cpp_obj, freq[i]);
-        WTFOscillator_setWindowW (x->cpp_obj, ww[i]);
+        WTFOscillatorSetFreq (x->cpp_obj, freq[i]);
+        WTFOscillatorSetWindowW (x->cpp_obj, ww[i]);
         
-        out[i] = WTFOscillator_process (x->cpp_obj);
+        out[i] = WTFOscillatorProcess (x->cpp_obj);
     }
 
     return (w+6);
@@ -42,8 +42,10 @@ void wtfosc_tilde_dsp(t_wtfosc_tilde *x, t_signal **sp)
 
 void wtfosc_tilde_free (t_wtfosc_tilde *x)
 {
+    inlet_free (x->x_in_window_width);
     outlet_free (x->x_out);
-    WTFOscillator_release (x->cpp_obj);
+    
+    WTFOscillatorRelease (x->cpp_obj);
 }
 
 void *wtfosc_tilde_new (t_floatarg f)
@@ -56,8 +58,8 @@ void *wtfosc_tilde_new (t_floatarg f)
     x->x_in_window_width = inlet_new (&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
     x->x_out = outlet_new (&x->x_obj, &s_signal);
     
-    x->cpp_obj = WTFOscillator_create ();
-    WTFOscillator_init (x->cpp_obj, 44100.f);
+    x->cpp_obj = WTFOscillatorCreate ();
+    WTFOscillatorInit (x->cpp_obj, 44100.f);
 
     return (void *)x;
 }

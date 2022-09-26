@@ -4,7 +4,6 @@
 namespace JackDsp
 {
 
-
 class WTFOscillator 
 {
 public:
@@ -30,7 +29,7 @@ public:
     WTFOscillator () = default;
     ~WTFOscillator () = default;
 
-    void Init(float sample_rate);
+    void init(float sample_rate);
 
     /** Get the next sample */
     float Process();

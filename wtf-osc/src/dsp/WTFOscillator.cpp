@@ -3,7 +3,7 @@
 
 using namespace JackDsp;
 
-void WTFOscillator::Init(float sample_rate)
+void WTFOscillator::init(float sample_rate)
 {
     _sampleRate = sample_rate;
 
@@ -16,8 +16,8 @@ void WTFOscillator::Init(float sample_rate)
     SetFrontWaveshape (WaveShape::WS_SIN);
     SetBackWaveshape (WaveShape::WS_SAW);
 
-    _window.SetLimits (0.0, 1.0);
-    _window.SetWindowWidth (0.0);
+    _window.setLimits (0.0, 1.0);
+    _window.setWindowWidth (0.0);
 }
 
 float WTFOscillator::Process()
@@ -52,12 +52,12 @@ void WTFOscillator::SetWindowConfig (WindowConfig config)
     switch (config)
     {
     case WindowConfig::Single:
-        _window.SetLimits (0.0, 1.0);
-        _windowAux.SetLimits (-1.0, -1.0);
+        _window.setLimits (0.0, 1.0);
+        _windowAux.setLimits (-1.0, -1.0);
         break;
     case WindowConfig::Dual:
-        _window.SetLimits (0.0, 0.5);
-        _windowAux.SetLimits (0.5, 1.0);
+        _window.setLimits (0.0, 0.5);
+        _windowAux.setLimits (0.5, 1.0);
     default:
         break;
     }
@@ -65,8 +65,8 @@ void WTFOscillator::SetWindowConfig (WindowConfig config)
 
 void WTFOscillator::SetWindowW(float ww)
 {
-    _window.SetWindowWidth (ww);
-    _windowAux.SetWindowWidth (ww);
+    _window.setWindowWidth (ww);
+    _windowAux.setWindowWidth (ww);
 }
 
 void WTFOscillator::SetFrontWaveshape (WaveShape waveshape)

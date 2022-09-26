@@ -16,7 +16,7 @@ set_pd_external_path(${CMAKE_CURRENT_SOURCE_DIR}/bin/)
 
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/wtfosc~.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/wtfosc_wrapper.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/WtfoscWrapper.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/dsp/WTFOscillator.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/dsp/WTFOscillator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../src/dsp/WTFWindow.h
@@ -24,8 +24,8 @@ set(SOURCES
 
 add_pd_external(wtfosc wtfosc~ "${SOURCES}")
 
-SET_SOURCE_FILES_PROPERTIES( ${CMAKE_CURRENT_SOURCE_DIR}/wtfosc~.c PROPERTIES LANGUAGE CXX )
+SET_SOURCE_FILES_PROPERTIES (${CMAKE_CURRENT_SOURCE_DIR}/wtfosc~.c PROPERTIES LANGUAGE CXX)
 
-set(WTFSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../src/dsp)
+set (WTFSOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../src/dsp)
 
 target_include_directories(wtfosc PRIVATE "${WTFSOURCES}")

@@ -130,7 +130,7 @@ void processDigitalControls ()
 
 void initOscillator ()
 {
-    _wtfOsc.Init (shield.AudioSampleRate ());
+    _wtfOsc.init (shield.AudioSampleRate ());
     _wtfOsc.SetFrontWaveshape (JackDsp::WTFOscillator::WaveShape::WS_SIN);
     _wtfOsc.SetBackWaveshape (JackDsp::WTFOscillator::WaveShape::WS_HARMONIC);
 
